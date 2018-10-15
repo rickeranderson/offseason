@@ -11,16 +11,12 @@ const routes: Routes = [
     component: LandingComponent
   },
   {
-    path: 'blog',
-    loadChildren: './blog/blog.module#BlogModule'
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule'
   },
   {
-    path: 'projects',
-    loadChildren: './projects/projects.module#ProjectsModule'
-  },
-  {
-    path: 'about',
-    loadChildren: './about/about.module#AboutModule'
+    path: 'player',
+    loadChildren: './player/player.module#PlayerModule'
   },
   {
     path: 'externalRedirect',

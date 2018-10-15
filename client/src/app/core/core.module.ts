@@ -7,11 +7,16 @@ import {
   MatDividerModule,
   MatIconModule, MatTooltipModule,
   MatCardModule,
-  MatGridListModule
+  MatGridListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSnackBarModule,
+  MatOptionModule,
+  MatSelectModule
 } from '@angular/material';
-import { BuildFooterComponent } from './build-footer/build-footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -24,23 +29,33 @@ import { RouterModule } from '@angular/router';
     MatTooltipModule,
     RouterModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatDividerModule,
-    BuildFooterComponent,
     HeaderComponent,
     MatIconModule,
     MatTooltipModule,
     RouterModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   declarations: [
-    BuildFooterComponent,
     HeaderComponent
   ]
 })

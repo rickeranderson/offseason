@@ -1,30 +1,8 @@
-.all-wrap {
-    min-height: 100vh;
-  }
-  
-  .page-wrap {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .content {
+
+.content {
     flex: 1;
     width: 900px;
     max-width: 900px;
     margin: auto;
-    // background-color: grey;
-  }
-  
-  
-  /*
-   * Make the Component injected by Router Outlet full height:
-   */
-  main {
-    display: flex;
-    flex-direction: column;
-    > *:not(router-outlet) {
-      flex: 1;
-      display: block;
-    }
+    margin-top: 10px;
   }
