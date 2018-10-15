@@ -1,0 +1,14 @@
+<div class="card-outline">
+  <mat-card class="project-card" [ngClass]="{'custom-card':true}">
+      <mat-card-header>
+        <mat-card-title>{{project.name}}</mat-card-title>
+        <mat-card-subtitle>Published: {{project.published | date:'mediumDate':'+0000'}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image style="max-height: 200px;" src="{{project.image}}">
+      <mat-card-content>
+        <p>
+          {{truncateDescription(project.description)}}
+        </p>
+      </mat-card-content>
+  </mat-card>
+</div>

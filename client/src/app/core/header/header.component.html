@@ -1,0 +1,9 @@
+<mat-toolbar>
+  <span>Header</span>
+  <span class="flex-over"></span>
+  <span *ngFor="let item of pages">
+    <button mat-icon-button color="primary" [matTooltip]="item.tooltip" [routerLink]="item.routePath">
+      <mat-icon>{{item.icon}}</mat-icon>
+    </button>
+  </span>
+</mat-toolbar>

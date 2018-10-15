@@ -1,0 +1,21 @@
+<div class="project-detail">
+  <button mat-stroked-button (click)="back()" color="accent"><mat-icon>arrow_back</mat-icon>Back</button>
+  <div>
+    <span style="display: flex; margin-top: 20px;">
+      <span style="margin-right: 20px;">
+          <img [src]="project.image" style="max-width: 250px;">
+      </span>
+      <span>
+          <h1>{{project.name}}</h1>
+          <h4>{{project.published | date:'mediumDate':'+0000'}}</h4>
+      </span>
+    </span>
+    
+    
+    <p>{{project.description}}</p>
+    <div *ngIf="project.link.length > 0" style="text-align: right;">
+      <button mat-stroked-button matTooltip="Check out source!" (click)="goToUrl(project.link)" color="accent"><mat-icon>code</mat-icon></button>
+    </div>
+  </div>
+</div>
+
