@@ -1,9 +1,0 @@
-<div *ngIf="projects">
-  <mat-grid-list [cols]="cols" rowHeight="500px">
-    <div *ngFor="let p of projects" style="color: white;">
-      <mat-grid-tile>
-          <app-project-card [project]="p" (click)="goToProject(p.id)"></app-project-card>
-      </mat-grid-tile>
-    </div>
-  </mat-grid-list>
-</div>

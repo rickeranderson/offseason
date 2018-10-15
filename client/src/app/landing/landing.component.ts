@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../core/services/login.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-landing',
@@ -6,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+  password: string;
 
-  constructor() { }
+  constructor(private loginService: LoginService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
+  }
+
+  login() {
+    if (!this.loginService.login(this.password)) {
+      this.openSnackBar('Incorrect Password', 'Error');
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
 }

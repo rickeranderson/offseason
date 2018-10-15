@@ -1,0 +1,9 @@
+<div  *ngIf="userList">
+  <mat-form-field>
+    <mat-select placeholder="Select User">
+      <mat-option *ngFor="let user of userList" [value]="user.id" (click)="selectUser(user)">
+        {{user.firstName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
