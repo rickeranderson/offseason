@@ -1,0 +1,1 @@
+python ./version-bump.py && cd ./client && ng build
