@@ -68,7 +68,7 @@ namespace api.Controllers
         }
 
         [HttpGet("List/Top")]
-        public async Task<List<Activity>> GetTop()
+        public async Task<List<User>> GetTop()
         {
             var users = _context.Users.ToList();
 
@@ -83,8 +83,17 @@ namespace api.Controllers
                 sortArray.Add(item);
             });
 
-            sortArray.OrderByDescending(x => x.Total);
+            sortArray = sortArray.OrderByDescending(x => x.Total).ToList();
+            var returnList = new List<User>();
+            for (var i = 0; i < 5; i++) {
+                try{
+                    returnList.Add(users.FirstOrDefault(x => x.Id == sortArray[i].Id));
+                } catch (Exception ex) {
 
+                }
+                
+            }
+            return returnList;
         }
     }
 
