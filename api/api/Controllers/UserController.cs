@@ -66,11 +66,37 @@ namespace api.Controllers
                 return false;
             }
         }
+
+        [HttpGet("List/Top")]
+        public async Task<List<Activity>> GetTop()
+        {
+            var users = _context.Users.ToList();
+
+            var sortArray = new List<SortArrayItem>();
+            users.ForEach(user =>
+            {
+                var item = new SortArrayItem()
+                {
+                    Id = user.Id,
+                    Total = user.ActivityList.Select(x => x.Amount).Sum()
+                };
+                sortArray.Add(item);
+            });
+
+            sortArray.OrderByDescending(x => x.Total);
+
+        }
     }
 
     public class UserRequest
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+    }
+
+    public class SortArrayItem
+    {
+        public string Id { get; set; }
+        public decimal Total { get; set; }
     }
 }
