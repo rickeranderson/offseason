@@ -26,5 +26,12 @@ namespace api.Controllers
             var allActivities = await _context.Activities.ToListAsync();
             return allActivities;
         }
+
+        [HttpGet("List/Top")]
+        public async Task<List<Activity>> GetTop()
+        {
+            var allActivities = await _context.Activities.ToListAsync();
+            return allActivities;
+        }
     }
 }
