@@ -15,6 +15,7 @@ namespace api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly Activities _activities = new Activities();
 
         public UserController(ApplicationDbContext context)
         {
@@ -68,7 +69,7 @@ namespace api.Controllers
         }
 
         [HttpGet("List/Top")]
-        public async Task<List<User>> GetTop()
+        public async Task<List<TopUser>> GetTop()
         {
             var users = _context.Users.ToList();
 
@@ -78,16 +79,17 @@ namespace api.Controllers
                 var item = new SortArrayItem()
                 {
                     Id = user.Id,
-                    Total = user.ActivityList.Select(x => x.Amount).Sum()
+                    Total = user.ActivityList.Select(x => x.Amount * _activities.ActivityList.FirstOrDefault(k => k.Id == x.ActivityId).Value).Sum()
                 };
                 sortArray.Add(item);
             });
 
             sortArray = sortArray.OrderByDescending(x => x.Total).ToList();
-            var returnList = new List<User>();
+            var returnList = new List<TopUser>();
             for (var i = 0; i < 5; i++) {
                 try{
-                    returnList.Add(users.FirstOrDefault(x => x.Id == sortArray[i].Id));
+                    var user = users.FirstOrDefault(x => x.Id == sortArray[i].Id);
+                    returnList.Add(new TopUser(){ FirstName = user.FirstName, LastName = user.LastName, Total = user.ActivityList.Select(x => x.Amount * _activities.ActivityList.FirstOrDefault(k => k.Id == x.ActivityId).Value).Sum()});
                 } catch (Exception ex) {
 
                 }
@@ -107,5 +109,12 @@ namespace api.Controllers
     {
         public string Id { get; set; }
         public decimal Total { get; set; }
+    }
+
+    public class TopUser
+    {
+        public string FirstName {get;set;}
+        public string LastName {get;set;}
+        public decimal Total {get;set;}
     }
 }

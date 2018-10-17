@@ -20,6 +20,13 @@ namespace api.Controllers
             _context = context;
         }
 
+        [HttpGet("List")]
+        public async Task<List<ActivityItem>> Get()
+        {
+            var activities = new Activities();
+            return activities.ActivityList;
+        }
+
         [HttpGet("List/All")]
         public async Task<List<Activity>> GetAll()
         {
