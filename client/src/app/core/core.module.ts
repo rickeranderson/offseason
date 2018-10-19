@@ -12,11 +12,13 @@ import {
   MatInputModule,
   MatSnackBarModule,
   MatOptionModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule
 } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatSnackBarModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    MatExpansionModule
   ],
   exports: [
     MatButtonModule,
@@ -53,7 +57,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatSnackBarModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule,
+    MatExpansionModule
   ],
   declarations: [
     HeaderComponent

@@ -29,6 +29,20 @@ namespace api
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("OffseasonDb")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            #region Cors
+            var corsOrigins = Configuration.GetSection("CorsOrigins").Get<string[]>();
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    builder => {
+                        builder.WithOrigins(corsOrigins)
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .WithExposedHeaders("Content-Disposition")
+                            .AllowCredentials();
+                    });
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +57,7 @@ namespace api
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())

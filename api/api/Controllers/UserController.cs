@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Infrastructure;
 using api.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace api.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -36,6 +38,13 @@ namespace api.Controllers
         {
             var users = await _context.Users.Where(x => x.Role == "Player").ToListAsync();
             return users;
+        }
+
+        [HttpGet("Player/{id}")]
+        public async Task<User> GetPlayerUsersByIdAsync(string id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return user;
         }
 
         [HttpPost("Create")]

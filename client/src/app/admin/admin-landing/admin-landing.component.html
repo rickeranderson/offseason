@@ -1,9 +1,21 @@
-<div  *ngIf="userList">
-  <mat-form-field>
-    <mat-select placeholder="Select User">
-      <mat-option *ngFor="let user of userList" [value]="user.id" (click)="selectUser(user)">
-        {{user.firstName}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<h3>
+  Admin Dashboard
+</h3>
+<div *ngIf="players && activityList">
+  <mat-accordion>
+    <div *ngFor="let player of players">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{player.firstName}} {{player.lastName}}</mat-panel-title>
+          <mat-panel-description>Total Points: {{ calculatePlayerTotal(player) }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          Some things
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+  <pre>
+    {{players | json}}
+  </pre>
 </div>
