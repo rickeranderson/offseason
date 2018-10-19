@@ -4,7 +4,6 @@ import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin.guard';
 import { CoreModule } from '../core/core.module';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   imports: [
@@ -12,7 +11,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     AdminRoutingModule,
     CoreModule
   ],
-  declarations: [AdminLandingComponent, AdminDashboardComponent],
+  declarations: [AdminLandingComponent],
   providers: [AdminGuard]
 })
 export class AdminModule { }

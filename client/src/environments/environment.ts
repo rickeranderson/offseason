@@ -6,7 +6,8 @@ const packageJson = require('../../version.json');
 export const environment = {
   production: false,
   appVersion: packageJson.version,
-  lastBuild: packageJson.lastBuild
+  lastBuild: packageJson.lastBuild,
+  apiBaseUrl: 'http://localhost:5000/api/'
 };
 
 /*

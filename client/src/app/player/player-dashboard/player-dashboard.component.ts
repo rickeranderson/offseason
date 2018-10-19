@@ -15,14 +15,6 @@ export class PlayerDashboardComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getCurrentUser();
-  }
-
-  getCurrentUser() {
-    const userId = this.route.snapshot.paramMap.get('userId');
-    console.log(userId);
-    this.user = this.userService.getPlayerById(userId);
-    console.log(this.user);
   }
 
 }

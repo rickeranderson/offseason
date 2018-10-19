@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { LoginService } from './login.service';
 import { UserData as UserData} from '../data/users';
+import { HttpClient } from '@angular/common/http';
+import { environment as env } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +12,9 @@ import { UserData as UserData} from '../data/users';
 export class UserService {
   currentUser: User;
   userData: UserData;
+  apiBaseUrl: string = env.apiBaseUrl;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private http: HttpClient) {
     this.userData = new UserData();
   }
 
@@ -18,22 +22,11 @@ export class UserService {
     this.currentUser = user;
   }
 
-  getAdminList() {
-    // if (this.loginService.isAdmin()) {
-    if (true) {
-      return this.userData.getMockAdmins();
-    }
+  getPlayerList(): Observable<User[]> {
+    return this.http.get(this.apiBaseUrl + 'user/player') as Observable<User[]>;
   }
 
-  getPlayerList() {
-    return this.userData.getMockPlayers();
-  }
-
-  getUserById(id: string): User {
-    return this.userData.getMockAdmins().find(x => x.id === id);
-  }
-
-  getPlayerById(id: string): User {
-    return this.userData.getMockPlayers().find(x => x.id === id);
+  getPlayerById(id: string) {
+    return this.http.get(this.apiBaseUrl + 'user/player/' + id);
   }
 }

@@ -19,7 +19,7 @@ export class PlayerLandingComponent implements OnInit {
   }
 
   getUserList() {
-    this.userList = this.userService.getPlayerList();
+    // this.userList = this.userService.getPlayerList();
   }
 
   selectUser(user: User) {
