@@ -19,5 +19,6 @@ namespace api.Models
         public string Id { get; set; }
         public int ActivityId { get; set; }
         public decimal Amount { get; set; }
+        public DateTime TimestampUtc { get; set; }
     }
 }

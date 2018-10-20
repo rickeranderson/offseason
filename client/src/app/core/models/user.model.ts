@@ -7,3 +7,8 @@ export interface User {
     role: string;
     activityList: Activity[];
 }
+
+export interface UserRequest {
+    firstName: string;
+    lastName: string;
+}

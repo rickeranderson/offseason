@@ -8,4 +8,5 @@ export interface ActivityDefinition {
     id: number;
     description: string;
     value: number;
+    timestampUtc: Date;
 }
