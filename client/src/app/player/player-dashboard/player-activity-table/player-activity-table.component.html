@@ -1,0 +1,52 @@
+<table mat-table [dataSource]="dataSource" matSort>
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Activity Name</th>
+    <td mat-cell *matCellDef="let row">
+      {{getActivityDescription(row.activityId)}}
+    </td>
+  </ng-container>
+
+  <!-- Amount Column -->
+  <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Time Amount</th>
+      <td mat-cell *matCellDef="let row">
+        {{getDurationDescription(row.amount)}}
+      </td>
+    </ng-container>
+
+  <!-- Total Points Column -->
+  <ng-container matColumnDef="totalPoints">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Points</th>
+    <td mat-cell *matCellDef="let row">
+      {{calculatePoints(row)}}
+    </td>
+  </ng-container>
+
+  <!-- TimestampUtc Column -->
+  <ng-container matColumnDef="timestampUtc">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+    <td mat-cell *matCellDef="let row">
+      {{row.timestampUtc | date:'shortDate'}}
+    </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef color="primary" class="shortwidth"> Actions </th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="warn" matTooltip="Edit">
+        <mat-icon aria-label="edit">edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" matTooltip="Delete">
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<div class="table-actions">
+  <button mat-raised-button color="primary" (click)="addActivity()">Add Activity</button>
+</div>

@@ -23,11 +23,13 @@ namespace api.Infrastructure
                             Id = Guid.NewGuid().ToString(),
                             ActivityId = 1,
                             Amount = 0.5M,
+                            TimestampUtc = DateTime.Now
                         },
                         new Activity() {
                             Id = Guid.NewGuid().ToString(),
-                        ActivityId = 2,
-                        Amount = 0.75M
+                            ActivityId = 2,
+                            Amount = 0.75M,
+                            TimestampUtc = DateTime.Now
                         }
                     }
                 };

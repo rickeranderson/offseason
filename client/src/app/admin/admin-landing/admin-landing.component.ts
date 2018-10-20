@@ -1,35 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/core/services/user.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
-import { HttpClient } from '@angular/common/http';
-import { ActivityService } from 'src/app/core/services/activity.service';
 import { Activity, ActivityDefinition } from 'src/app/core/models/activity.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app-state';
+import { GetUsers } from '../../store/user-store/user.actions';
+import { GetActivityList } from '../../store/activity-store/activity.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-landing',
   templateUrl: './admin-landing.component.html',
   styleUrls: ['./admin-landing.component.scss']
 })
-export class AdminLandingComponent implements OnInit {
+export class AdminLandingComponent implements OnInit, OnDestroy {
   players: User[];
+  players$: Subscription;
   activityList: ActivityDefinition[];
+  activityList$: Subscription;
 
-  constructor(private userService: UserService, private activityService: ActivityService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.getPlayers();
     this.getAllActivityList();
   }
 
+  ngOnDestroy() {
+    this.players$.unsubscribe();
+    this.activityList$.unsubscribe();
+  }
+
   getPlayers() {
-    this.userService.getPlayerList().subscribe(val => {
+    this.store.dispatch(new GetUsers());
+    this.players$ = this.store.select(x => x.users).subscribe(val => {
       this.players = val;
     });
   }
 
   getAllActivityList() {
-    this.activityService.getActivityList().subscribe(val => {
-      this.activityList = val as ActivityDefinition[];
+    this.store.dispatch(new GetActivityList());
+    this.activityList$ = this.store.select(x => x.activityList).subscribe(val => {
+      this.activityList = val;
     });
   }
 
@@ -39,6 +50,15 @@ export class AdminLandingComponent implements OnInit {
       total = total + a.amount * this.activityList.find(x => x.id === a.activityId).value;
     });
     return total;
+  }
+
+  activityDescription(activity: Activity): string {
+    const act = this.activityList.find(x => x.id === activity.activityId).description;
+    return act;
+  }
+
+  activityPoints(activity: Activity): number {
+    return activity.amount * this.activityList.find(x => x.id === activity.activityId).value;
   }
 
 }

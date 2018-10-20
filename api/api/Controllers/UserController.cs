@@ -37,6 +37,12 @@ namespace api.Controllers
         public async Task<List<User>> GetPlayerUsersAsync()
         {
             var users = await _context.Users.Where(x => x.Role == "Player").ToListAsync();
+            users = users.OrderByDescending(x => x.FirstName).ToList();
+            users.ForEach(user => {
+                if(user.ActivityList == null) {
+                    user.ActivityList = new List<Activity>();
+                }
+            });
             return users;
         }
 
@@ -44,6 +50,9 @@ namespace api.Controllers
         public async Task<User> GetPlayerUsersByIdAsync(string id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if(user.ActivityList == null) {
+                user.ActivityList = new List<Activity>();
+            }
             return user;
         }
 
@@ -60,6 +69,20 @@ namespace api.Controllers
             };
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            return user;
+        }
+
+        [HttpPost("Update")]
+        public async Task<User> UpdatePlayer([FromBody] User updatedUser)
+        {
+            var user = await  _context.Users.FirstOrDefaultAsync(x => x.Id == updatedUser.Id);
+            user.FirstName = updatedUser.FirstName;
+            user.LastName = updatedUser.LastName;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            if(user.ActivityList == null) {
+                user.ActivityList = new List<Activity>();
+            }
             return user;
         }
 

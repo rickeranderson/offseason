@@ -13,12 +13,17 @@ import {
   MatSnackBarModule,
   MatOptionModule,
   MatSelectModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTabsModule,
+  MatTableModule,
+  MatDialogModule
 } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
+import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.component';
 
 @NgModule({
   imports: [
@@ -39,7 +44,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatOptionModule,
     MatSelectModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
+    ChartsModule,
+    MatTableModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -59,10 +68,16 @@ import { HttpClientModule } from '@angular/common/http';
     MatOptionModule,
     MatSelectModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTabsModule,
+    ChartsModule,
+    MatTableModule,
+    MatDialogModule,
+    DeleteDialogComponent
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    DeleteDialogComponent
   ]
 })
 export class CoreModule { }

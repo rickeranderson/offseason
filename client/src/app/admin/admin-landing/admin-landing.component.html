@@ -1,21 +1,33 @@
 <h3>
   Admin Dashboard
 </h3>
-<div *ngIf="players && activityList">
-  <mat-accordion>
-    <div *ngFor="let player of players">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{player.firstName}} {{player.lastName}}</mat-panel-title>
-          <mat-panel-description>Total Points: {{ calculatePlayerTotal(player) }}</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div>
-          Some things
-        </div>
-      </mat-expansion-panel>
-    </div>
-  </mat-accordion>
-  <pre>
-    {{players | json}}
-  </pre>
+<div *ngIf="players && players.length > 0 && activityList && activityList.length > 0">
+<mat-tab-group>
+  <mat-tab label="List">
+    <mat-accordion>
+      <div *ngFor="let player of players">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="width: 50%;">{{player.firstName}} {{player.lastName}}</mat-panel-title>
+            <mat-panel-description>Total Points: {{ calculatePlayerTotal(player) }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngIf="player.activityList.length > 0">
+            <div *ngFor="let activity of player.activityList">
+              <strong>Activity:</strong> {{activityDescription(activity)}} <strong>Points:</strong> {{activityPoints(activity)}} <strong>Date:</strong> {{activity.timestampUtc | date:'short'}}
+            </div>
+          </div>
+          <div *ngIf="player.activityList.length === 0">
+            <strong>No Activities Recorded</strong>
+          </div>
+        </mat-expansion-panel>
+      </div>
+      </mat-accordion>
+  </mat-tab>
+  <mat-tab label="Chart">
+    <app-all-players-graph [players]="players" [activityList]="activityList"></app-all-players-graph>
+  </mat-tab>
+  <mat-tab label="Manage Players">
+    <app-manage-players [players]="players"></app-manage-players>
+  </mat-tab>
+</mat-tab-group>
 </div>

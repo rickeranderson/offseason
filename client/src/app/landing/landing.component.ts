@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../core/services/login.service';
 import { MatSnackBar } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app-state';
+import { GetActivityList } from '../store/activity-store/activity.actions';
 
 @Component({
   selector: 'app-landing',
