@@ -69,9 +69,9 @@ namespace api
                         Console.WriteLine("Running DB Migrations...");
                         context.Database.Migrate();
                         Console.WriteLine("DB Migrations complete.");
-                        Console.WriteLine("Seeding database...");
-                        SeedData.Initialize(context);
-                        Console.WriteLine("Seeding complete.");
+                        // Console.WriteLine("Seeding database...");
+                        // SeedData.Initialize(context);
+                        // Console.WriteLine("Seeding complete.");
                     }
                     if (false)
                     {

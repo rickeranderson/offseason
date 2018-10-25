@@ -86,6 +86,8 @@ namespace api.Controllers
             return user;
         }
 
+        
+
         [HttpDelete("Delete/{id}")]
         public async Task<bool> DeletePlayer(string id)
         {
@@ -98,6 +100,53 @@ namespace api.Controllers
             {
                 return false;
             }
+        }
+
+        [HttpPost("Player/{id}/Activity")]
+        public async Task<User> AddActivity(string id, [FromBody] Activity activity)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if(user != null) {
+                if(user.ActivityList == null)
+                {
+                    user.ActivityList = new List<Activity>();
+                }
+                user.ActivityList.Add(activity);
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            return user;
+        }
+
+        [HttpDelete("Player/{id}/Activity/{activityId}")]
+        public async Task<User> DeleteActivity(string id, string activityId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if(user != null && user.ActivityList != null) {
+                var activity = user.ActivityList.FirstOrDefault(x => x.Id == activityId);
+                if(activity != null)
+                {
+                    user.ActivityList.Remove(activity);
+                }
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            return user;
+        }
+
+        [HttpPut("Player/{id}/Activity/{activityId}")]
+        public async Task<User> UpdateActivity(string id, string activityId,[FromBody] Activity activity)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if(user != null) {
+                var oldActivity = user.ActivityList.FirstOrDefault(x => x.Id == activityId);
+                oldActivity.Amount = activity.Amount;
+                oldActivity.TimestampUtc = activity.TimestampUtc;
+                oldActivity.ActivityId = activity.ActivityId;
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            return user;
         }
 
         [HttpGet("List/Top")]
