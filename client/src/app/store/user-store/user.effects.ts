@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as UserActions from './user.actions';
 import { environment as env } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { switchMap, map, catchError, tap } from 'rxjs/operators';
+import { AppState } from '../app-state';
+import { GetTopUsers } from '../top-users-store/top-users.actions';
 
 @Injectable()
 export class UserEffects {
@@ -55,7 +57,51 @@ export class UserEffects {
       )
     );
 
+    @Effect()
+    createUserActivity$: Observable<Action> = this.actions$.pipe(
+      ofType(UserActions.CREATE_USER_ACTIVITY),
+      switchMap((action: UserActions.CreateUserActivity) =>
+        this.http.post(this.apiBaseUrl + 'user/player/' + action.payload.playerId + '/activity', action.payload.activity).pipe(
+          map(value => ({ type: UserActions.CREATE_USER_ACTIVITY_SUCCESS, payload: value})),
+          tap( () => {
+            this.store.dispatch(new GetTopUsers());
+          }),
+          catchError(err => of(new UserActions.CreateUserActivityFail()))
+        )
+      )
+    );
+
+    @Effect()
+    updateUserActivity$: Observable<Action> = this.actions$.pipe(
+      ofType(UserActions.UPDATE_USER_ACTIVITY),
+      switchMap((action: UserActions.UpdateUserActivity) =>
+        // tslint:disable-next-line:max-line-length
+        this.http.put(this.apiBaseUrl + 'user/player/' + action.payload.playerId + '/activity/' + action.payload.activityId, action.payload.activity).pipe(
+          map(value => ({ type: UserActions.UPDATE_USER_ACTIVITY_SUCCESS, payload: value})),
+          tap( () => {
+            this.store.dispatch(new GetTopUsers());
+          }),
+          catchError(err => of(new UserActions.UpdateUserActivityFail()))
+        )
+      )
+    );
+
+    @Effect()
+    deleteUserActivity$: Observable<Action> = this.actions$.pipe(
+      ofType(UserActions.DELETE_USER_ACTIVITY),
+      switchMap((action: UserActions.DeleteUserActivity) =>
+        // tslint:disable-next-line:max-line-length
+        this.http.delete(this.apiBaseUrl + 'user/player/' + action.payload.playerId + '/activity/' + action.payload.activityId).pipe(
+          map(value => ({ type: UserActions.DELETE_USER_ACTIVITY_SUCCESS, payload: action.payload})),
+          tap( () => {
+            this.store.dispatch(new GetTopUsers());
+          }),
+          catchError(err => of(new UserActions.DeleteUserActivityFail()))
+        )
+      )
+    );
+
   constructor(private http: HttpClient,
-    private actions$: Actions) {}
+    private actions$: Actions, private store: Store<AppState>) {}
 
 }

@@ -10,3 +10,9 @@ export interface ActivityDefinition {
     value: number;
     timestampUtc: Date;
 }
+
+export interface TopUser {
+    firstName: string;
+    lastName: string;
+    total: number;
+}

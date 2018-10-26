@@ -111,6 +111,8 @@ namespace api.Controllers
                 {
                     user.ActivityList = new List<Activity>();
                 }
+                activity.Id = Guid.NewGuid().ToString();
+                activity.TimestampUtc = DateTime.Now;
                 user.ActivityList.Add(activity);
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
@@ -119,7 +121,7 @@ namespace api.Controllers
         }
 
         [HttpDelete("Player/{id}/Activity/{activityId}")]
-        public async Task<User> DeleteActivity(string id, string activityId)
+        public async Task<bool> DeleteActivity(string id, string activityId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if(user != null && user.ActivityList != null) {
@@ -130,8 +132,9 @@ namespace api.Controllers
                 }
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
+                return true;
             }
-            return user;
+            return false;
         }
 
         [HttpPut("Player/{id}/Activity/{activityId}")]
@@ -157,6 +160,10 @@ namespace api.Controllers
             var sortArray = new List<SortArrayItem>();
             users.ForEach(user =>
             {
+                if(user.ActivityList == null)
+                {
+                    user.ActivityList = new List<Activity>();
+                }
                 var item = new SortArrayItem()
                 {
                     Id = user.Id,

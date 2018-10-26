@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLandingComponent,
-    // canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   }
 ];
 

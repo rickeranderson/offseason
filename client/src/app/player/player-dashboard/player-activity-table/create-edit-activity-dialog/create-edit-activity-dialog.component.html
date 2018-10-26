@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{data.mode}} Activity</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-select placeholder="Activity" [(ngModel)]="data.activity.activityId">
+          <mat-option *ngFor="let activity of data.activityList" [value]="activity.id" (click)="data.activity.activityId = activity.id">
+            {{activity.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+          <mat-select placeholder="Time" [(ngModel)]="data.activity.amount">
+            <mat-option *ngFor="let duration of durationList" [value]="duration.value" (click)="data.activity.amount = duration.value">
+              {{duration.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button  (click)="save()" cdkFocusInitial>Save</button>
+</div>

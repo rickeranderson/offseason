@@ -1,5 +1,11 @@
 import { Action } from '@ngrx/store';
-import { User, UserRequest } from '../../core/models/user.model';
+import {
+    User,
+    UserRequest,
+    CreateUserActivityRequest,
+    UpdateUserActivityRequest,
+    DeleteUserActivityRequest
+} from '../../core/models/user.model';
 
 export const GET_USERS = '[User] GetUsers';
 export class GetUsers implements Action {
@@ -73,6 +79,60 @@ export class DeleteUserFail implements Action {
     constructor(public payload?: any) { }
 }
 
+export const CREATE_USER_ACTIVITY = '[User] CreateUserActivity';
+export class CreateUserActivity implements Action {
+    readonly type = CREATE_USER_ACTIVITY;
+    constructor(public payload?: CreateUserActivityRequest) { }
+}
+
+export const CREATE_USER_ACTIVITY_SUCCESS = '[User] CreateUserActivity_Success';
+export class CreateUserActivitySuccess implements Action {
+    readonly type = CREATE_USER_ACTIVITY_SUCCESS;
+    constructor(public payload?: User) { }
+}
+
+export const CREATE_USER_ACTIVITY_FAIL = '[User] CreateUserActivity_Fail';
+export class CreateUserActivityFail implements Action {
+    readonly type = CREATE_USER_ACTIVITY_FAIL;
+    constructor(public payload?: any) { }
+}
+
+export const UPDATE_USER_ACTIVITY = '[User] UpdateUserActivity';
+export class UpdateUserActivity implements Action {
+    readonly type = UPDATE_USER_ACTIVITY;
+    constructor(public payload?: UpdateUserActivityRequest) { }
+}
+
+export const UPDATE_USER_ACTIVITY_SUCCESS = '[User] UpdateUserActivity_Success';
+export class UpdateUserActivitySuccess implements Action {
+    readonly type = UPDATE_USER_ACTIVITY_SUCCESS;
+    constructor(public payload?: User) { }
+}
+
+export const UPDATE_USER_ACTIVITY_FAIL = '[User] UpdateUserActivity_Fail';
+export class UpdateUserActivityFail implements Action {
+    readonly type = UPDATE_USER_ACTIVITY_FAIL;
+    constructor(public payload?: any) { }
+}
+
+export const DELETE_USER_ACTIVITY = '[User] DeleteUserActivity';
+export class DeleteUserActivity implements Action {
+    readonly type = DELETE_USER_ACTIVITY;
+    constructor(public payload?: DeleteUserActivityRequest) { }
+}
+
+export const DELETE_USER_ACTIVITY_SUCCESS = '[User] DeleteUserActivity_Success';
+export class DeleteUserActivitySuccess implements Action {
+    readonly type = DELETE_USER_ACTIVITY_SUCCESS;
+    constructor(public payload?: DeleteUserActivityRequest) { }
+}
+
+export const DELETE_USER_ACTIVITY_FAIL = '[User] DeleteUserActivity_Fail';
+export class DeleteUserActivityFail implements Action {
+    readonly type = DELETE_USER_ACTIVITY_FAIL;
+    constructor(public payload?: any) { }
+}
+
 export type All
     = GetUsers
     | GetUsersSuccess
@@ -85,4 +145,13 @@ export type All
     | CreateUserFail
     | DeleteUser
     | DeleteUserSuccess
-    | DeleteUserFail;
+    | DeleteUserFail
+    | CreateUserActivity
+    | CreateUserActivitySuccess
+    | CreateUserActivityFail
+    | UpdateUserActivity
+    | UpdateUserActivitySuccess
+    | UpdateUserActivityFail
+    | DeleteUserActivity
+    | DeleteUserActivitySuccess
+    | DeleteUserActivityFail;

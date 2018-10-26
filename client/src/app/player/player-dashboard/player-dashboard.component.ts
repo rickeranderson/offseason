@@ -6,7 +6,8 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { GetUsers } from '../../store/user-store/user.actions';
 import { GetActivityList } from '../../store/activity-store/activity.actions';
-import { ActivityDefinition } from '../../core/models/activity.model';
+import { ActivityDefinition, TopUser } from '../../core/models/activity.model';
+import { GetTopUsers } from 'src/app/store/top-users-store/top-users.actions';
 
 @Component({
   selector: 'app-player-dashboard',
@@ -29,6 +30,8 @@ export class PlayerDashboardComponent implements OnInit, OnDestroy {
     this.userId = this.route.snapshot.paramMap.get('userId');
     this.store.dispatch(new GetUsers());
     this.store.dispatch(new GetActivityList());
+    this.store.dispatch(new GetTopUsers());
+
     this.user$ = this.store.select(x => x.users).subscribe(val => {
       this.user = val.find(x => x.id === this.userId);
     });

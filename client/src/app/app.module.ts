@@ -15,6 +15,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user-store/user.effects';
 import { activityReducer } from './store/activity-store/activity.reducer';
 import { ActivityEffects } from './store/activity-store/activity.effects';
+import { topUsersReducer } from './store/top-users-store/top-users.reducer';
+import { TopUsersEffects } from './store/top-users-store/top-users.effects';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,12 @@ import { ActivityEffects } from './store/activity-store/activity.effects';
     BrowserAnimationsModule,
     CoreModule,
     AppRoutingModule,
-    EffectsModule.forRoot([UserEffects, ActivityEffects]),
+    EffectsModule.forRoot([UserEffects, ActivityEffects, TopUsersEffects]),
     StoreModule.forRoot(
       {
         users: userReducer,
-        activityList: activityReducer
+        activityList: activityReducer,
+        topUsers: topUsersReducer
       }
     ),
     StoreDevtoolsModule.instrument({

@@ -32,12 +32,17 @@ export class AllPlayersGraphComponent implements OnInit, OnChanges {
   setData() {
     this.barChartOptions = {
       scaleShowVerticalLines: false,
-      responsive: true
+      responsive: true,
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+      }
     };
 
-    this.barChartLabels = this.players.map(function(v) {
-      return v.firstName + ' ' + v.lastName;
-    });
+    this.barChartLabels = JSON.parse(JSON.stringify(this.getAthleteList()));
 
 
     this.barChartData = this.formatData(this.players);
@@ -62,6 +67,13 @@ export class AllPlayersGraphComponent implements OnInit, OnChanges {
     });
 
     return data;
+  }
+
+  getAthleteList() {
+    const list = this.players.map(function(v) {
+      return v.firstName + ' ' + v.lastName;
+    });
+    return list;
   }
 }
 

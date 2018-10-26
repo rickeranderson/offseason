@@ -1,6 +1,6 @@
 <div *ngIf="user && userId && activityList && activityList.length > 0">
   <h2>Welcome, {{user.firstName}} {{user.lastName}}!</h2>
-  <pre>{{user | json}}</pre>
+  <app-top-athletes></app-top-athletes>
   <mat-tab-group>
     <mat-tab label="Activity Log">
       <app-player-activity-table [userId]="userId" [activityList]="activityList"></app-player-activity-table>

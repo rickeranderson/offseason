@@ -50,6 +50,43 @@ export function userReducer(state = defaultUserState, action: Action) {
         case UserActions.DELETE_USER_FAIL:
             return [ ...state ];
 
+        case UserActions.CREATE_USER_ACTIVITY:
+            return [ ...state ];
+
+        case UserActions.CREATE_USER_ACTIVITY_SUCCESS:
+            const tmpNewActivity = [...state];
+            tmpNewActivity[tmpNewActivity.indexOf(tmpNewActivity.find(x => x.id === action.payload.id))] = action.payload;
+            return [ ...tmpNewActivity ];
+
+        case UserActions.CREATE_USER_ACTIVITY_FAIL:
+            return [ ...state ];
+
+        case UserActions.UPDATE_USER_ACTIVITY:
+            return [ ...state ];
+
+        case UserActions.UPDATE_USER_ACTIVITY_SUCCESS:
+            const tmpUpdateActivity = [...state];
+            tmpUpdateActivity[tmpUpdateActivity.indexOf(tmpUpdateActivity.find(x => x.id === action.payload.id))] = action.payload;
+            return [ ...tmpUpdateActivity ];
+
+        case UserActions.UPDATE_USER_ACTIVITY_FAIL:
+            return [ ...state ];
+
+        case UserActions.DELETE_USER_ACTIVITY:
+            return [ ...state ];
+
+        case UserActions.DELETE_USER_ACTIVITY_SUCCESS:
+            const tmpState = [ ...state ];
+            const user = tmpState[tmpState.indexOf(tmpState.find(x => x.id === action.payload.playerId))];
+            user.activityList.splice(user.activityList.findIndex(x => x.id === action.payload.activityId));
+
+            tmpState[tmpState.indexOf(tmpState.find(x => x.id === action.payload.playerId))] = user;
+
+            return [ ...tmpState ];
+
+        case UserActions.DELETE_USER_ACTIVITY_FAIL:
+            return [ ...state ];
+
         default:
             return state;
     }

@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Activity, ActivityDefinition } from '../../../core/models/activity.model';
-import { User } from '../../../core/models/user.model';
+import { User, DeleteUserActivityRequest } from '../../../core/models/user.model';
 import { AppState } from '../../../store/app-state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { GetUsers } from '../../../store/user-store/user.actions';
+import { GetUsers, DeleteUser, DeleteUserActivity, CreateUserActivity, UpdateUserActivity } from '../../../store/user-store/user.actions';
 import { DurationList } from '../../../core/data/time-list';
+import { DeleteDialogComponent } from 'src/app/core/shared/delete-dialog/delete-dialog.component';
+import { CreateEditActivityDialogComponent } from './create-edit-activity-dialog/create-edit-activity-dialog.component';
 
 @Component({
   selector: 'app-player-activity-table',
@@ -26,7 +28,7 @@ export class PlayerActivityTableComponent implements OnInit, OnChanges {
   user: User;
   user$: Subscription;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(public dialog: MatDialog, private store: Store<AppState>) { }
 
   ngOnInit() {
     this.getUser();
@@ -62,7 +64,41 @@ export class PlayerActivityTableComponent implements OnInit, OnChanges {
   }
 
   addActivity() {
-    console.log('todo');
+    const dialogRef = this.dialog.open(CreateEditActivityDialogComponent, {
+      width: '350px',
+      data: {mode: 'Add', activity: { id: '', amount: 0, activityId: null } as Activity, activityList: this.activityList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new CreateUserActivity({playerId: this.user.id, activity: result.activity}));
+      }
+    });
+  }
+
+  updateActivity(activity: Activity) {
+    const dialogRef = this.dialog.open(CreateEditActivityDialogComponent, {
+      width: '350px',
+      data: {mode: 'Edit', activity: activity, activityList: this.activityList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new UpdateUserActivity({playerId: this.user.id, activityId: activity.id, activity: result.activity}));
+      }
+    });
+  }
+
+  deleteActivity(activity: Activity) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new DeleteUserActivity({playerId: this.user.id, activityId: activity.id} as DeleteUserActivityRequest));
+      }
+    });
   }
 
 }

@@ -2,7 +2,7 @@
   Admin Dashboard
 </h3>
 <div *ngIf="players && players.length > 0 && activityList && activityList.length > 0">
-<mat-tab-group>
+<mat-tab-group #tabGroup (selectedTabChange)="tabChanged($event)">
   <mat-tab label="List">
     <mat-accordion>
       <div *ngFor="let player of players">
@@ -24,7 +24,9 @@
       </mat-accordion>
   </mat-tab>
   <mat-tab label="Chart">
-    <app-all-players-graph [players]="players" [activityList]="activityList"></app-all-players-graph>
+    <div *ngIf="selectedTabIndex === 1">
+      <app-all-players-graph [players]="players" [activityList]="activityList"></app-all-players-graph>
+    </div>
   </mat-tab>
   <mat-tab label="Manage Players">
     <app-manage-players [players]="players"></app-manage-players>
