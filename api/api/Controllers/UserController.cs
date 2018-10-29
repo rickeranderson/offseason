@@ -121,7 +121,7 @@ namespace api.Controllers
         }
 
         [HttpDelete("Player/{id}/Activity/{activityId}")]
-        public async Task<bool> DeleteActivity(string id, string activityId)
+        public async Task<User> DeleteActivity(string id, string activityId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if(user != null && user.ActivityList != null) {
@@ -132,9 +132,9 @@ namespace api.Controllers
                 }
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
-                return true;
+                return user;
             }
-            return false;
+            return null;
         }
 
         [HttpPut("Player/{id}/Activity/{activityId}")]

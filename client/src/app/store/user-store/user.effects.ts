@@ -92,7 +92,7 @@ export class UserEffects {
       switchMap((action: UserActions.DeleteUserActivity) =>
         // tslint:disable-next-line:max-line-length
         this.http.delete(this.apiBaseUrl + 'user/player/' + action.payload.playerId + '/activity/' + action.payload.activityId).pipe(
-          map(value => ({ type: UserActions.DELETE_USER_ACTIVITY_SUCCESS, payload: action.payload})),
+          map(value => ({ type: UserActions.DELETE_USER_ACTIVITY_SUCCESS, payload: value})),
           tap( () => {
             this.store.dispatch(new GetTopUsers());
           }),

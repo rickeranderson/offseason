@@ -124,7 +124,7 @@ export class DeleteUserActivity implements Action {
 export const DELETE_USER_ACTIVITY_SUCCESS = '[User] DeleteUserActivity_Success';
 export class DeleteUserActivitySuccess implements Action {
     readonly type = DELETE_USER_ACTIVITY_SUCCESS;
-    constructor(public payload?: DeleteUserActivityRequest) { }
+    constructor(public payload?: any) { }
 }
 
 export const DELETE_USER_ACTIVITY_FAIL = '[User] DeleteUserActivity_Fail';

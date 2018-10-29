@@ -76,13 +76,9 @@ export function userReducer(state = defaultUserState, action: Action) {
             return [ ...state ];
 
         case UserActions.DELETE_USER_ACTIVITY_SUCCESS:
-            const tmpState = [ ...state ];
-            const user = tmpState[tmpState.indexOf(tmpState.find(x => x.id === action.payload.playerId))];
-            user.activityList.splice(user.activityList.findIndex(x => x.id === action.payload.activityId));
-
-            tmpState[tmpState.indexOf(tmpState.find(x => x.id === action.payload.playerId))] = user;
-
-            return [ ...tmpState ];
+            const tmpDeleteActivity = [...state];
+            tmpDeleteActivity[tmpDeleteActivity.indexOf(tmpDeleteActivity.find(x => x.id === action.payload.id))] = action.payload;
+            return [ ...tmpDeleteActivity ];
 
         case UserActions.DELETE_USER_ACTIVITY_FAIL:
             return [ ...state ];

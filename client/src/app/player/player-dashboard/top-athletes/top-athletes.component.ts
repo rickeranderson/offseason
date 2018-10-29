@@ -56,15 +56,15 @@ export class TopAthletesComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.barChartLabels = this.topUsers.map(function(v) {
-      const name = v.firstName + ' ' + v.lastName;
-      return name;
-    });
+    this.barChartLabels = this.formatLabels();
   }
 
   setData(data: TopUser[]) {
     const clone = JSON.parse(JSON.stringify(this.formatData(data))) as BarData[];
     this.barChartData = clone;
+    setTimeout(() => {
+      this.barChartLabels = this.formatLabels();
+    }, 50);
     this.done = true;
   }
 
@@ -75,6 +75,14 @@ export class TopAthletesComponent implements OnInit, OnDestroy {
       data[0].data.push(player.total);
     });
     return data;
+  }
+
+  formatLabels() {
+    const labels = this.topUsers.map(function(v) {
+      const name = v.firstName + ' ' + v.lastName;
+      return name;
+    });
+    return JSON.parse(JSON.stringify(labels));
   }
 
 }
