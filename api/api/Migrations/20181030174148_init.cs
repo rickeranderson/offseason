@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace api.Migrations
 {
@@ -27,6 +28,7 @@ namespace api.Migrations
                     Id = table.Column<string>(nullable: false),
                     ActivityId = table.Column<int>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
+                    TimestampUtc = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
