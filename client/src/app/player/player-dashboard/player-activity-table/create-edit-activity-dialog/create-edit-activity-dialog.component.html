@@ -8,7 +8,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-          <mat-select placeholder="Time" [(ngModel)]="data.activity.amount">
+          <mat-select placeholder="Duration" [(ngModel)]="data.activity.amount">
             <mat-option *ngFor="let duration of durationList" [value]="duration.value" (click)="data.activity.amount = duration.value">
               {{duration.description}}
             </mat-option>

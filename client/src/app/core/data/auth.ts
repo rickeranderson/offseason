@@ -1,8 +1,8 @@
 import { User } from '../models/user.model';
 
 export class AuthData {
-    private admin = 'adminPassword';
-    private player = 'userPassword';
+    private admin = 'adminRacers!';
+    private player = 'racers!';
 
     constructor() {
     }
