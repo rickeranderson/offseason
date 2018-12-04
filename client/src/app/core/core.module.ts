@@ -16,7 +16,9 @@ import {
   MatExpansionModule,
   MatTabsModule,
   MatTableModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
@@ -73,7 +75,9 @@ import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.comp
     ChartsModule,
     MatTableModule,
     MatDialogModule,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     HeaderComponent,

@@ -23,7 +23,7 @@ namespace api.Controllers
         }
 
         [HttpGet("List")]
-        public async Task<List<ActivityItem>> Get()
+        public List<ActivityItem> Get()
         {
             var activities = new Activities();
             return activities.ActivityList;

@@ -19,7 +19,28 @@ export class GetActivityListFail implements Action {
     constructor(public payload?: any) { }
 }
 
+export const GET_WAKE = '[Api] GetWake';
+export class GetWake implements Action {
+    readonly type = GET_WAKE;
+    constructor() { }
+}
+
+export const GET_WAKE_SUCCESS = '[Api] GetWake_Success';
+export class GetWakeSuccess implements Action {
+    readonly type = GET_WAKE_SUCCESS;
+    constructor(public payload?: any) { }
+}
+
+export const GET_WAKE_FAIL = '[Api] GetWake_Fail';
+export class GetWakeFail implements Action {
+    readonly type = GET_WAKE_FAIL;
+    constructor(public payload?: any) { }
+}
+
 export type All
     = GetActivityList
     | GetActivityListSuccess
-    | GetActivityListFail;
+    | GetActivityListFail
+    | GetWake
+    | GetWakeSuccess
+    | GetWakeFail;

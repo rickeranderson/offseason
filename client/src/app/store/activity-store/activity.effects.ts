@@ -22,6 +22,16 @@ export class ActivityEffects {
       )
     );
 
+    @Effect()
+    api$: Observable<Action> = this.actions$.pipe(
+      ofType(ActivityActions.GET_WAKE),
+      switchMap((action: ActivityActions.GetWake) =>
+        this.http.get(this.apiBaseUrl + 'health').pipe(
+          map(value => ({ type: ActivityActions.GET_WAKE_SUCCESS, payload: value})),
+          catchError(err => of(new ActivityActions.GetWakeFail()))
+        )
+      )
+    );
   constructor(private http: HttpClient,
     private actions$: Actions) {}
 

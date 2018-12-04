@@ -112,7 +112,6 @@ namespace api.Controllers
                     user.ActivityList = new List<Activity>();
                 }
                 activity.Id = Guid.NewGuid().ToString();
-                activity.TimestampUtc = DateTime.Now;
                 user.ActivityList.Add(activity);
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
@@ -155,7 +154,7 @@ namespace api.Controllers
         [HttpGet("List/Top")]
         public async Task<List<TopUser>> GetTop()
         {
-            var users = _context.Users.ToList();
+            var users = await _context.Users.ToListAsync();
 
             var sortArray = new List<SortArrayItem>();
             users.ForEach(user =>

@@ -13,7 +13,7 @@
           </mat-expansion-panel-header>
           <div *ngIf="player.activityList.length > 0">
             <div *ngFor="let activity of player.activityList">
-              <strong>Activity:</strong> {{activityDescription(activity)}} <strong>Points:</strong> {{activityPoints(activity)}} <strong>Date:</strong> {{activity.timestampUtc | date:'short'}}
+              <strong>Activity:</strong> {{activityDescription(activity)}} <strong>Points:</strong> {{activityPoints(activity)}} <strong>Date:</strong> {{activity.timestampUtc | date:'shortDate'}}
             </div>
           </div>
           <div *ngIf="player.activityList.length === 0">

@@ -8,12 +8,17 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-          <mat-select placeholder="Duration" [(ngModel)]="data.activity.amount">
-            <mat-option *ngFor="let duration of durationList" [value]="duration.value" (click)="data.activity.amount = duration.value">
-              {{duration.description}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-select placeholder="Duration" [(ngModel)]="data.activity.amount">
+          <mat-option *ngFor="let duration of durationList" [value]="duration.value" (click)="data.activity.amount = duration.value">
+            {{duration.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="data.activity.timestampUtc">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="cancel()">Cancel</button>

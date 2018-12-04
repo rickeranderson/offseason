@@ -17,6 +17,15 @@ export function activityReducer(state = defaultActivityListState, action: Action
         case ActivityActions.GET_ACTIVITYLIST_FAIL:
             return [ ...state ];
 
+        case ActivityActions.GET_WAKE:
+            return [ ...state ];
+
+        case ActivityActions.GET_WAKE_SUCCESS:
+            return [ ...state ];
+
+        case ActivityActions.GET_WAKE_FAIL:
+            return [ ...state ];
+
         default:
             return state;
     }
