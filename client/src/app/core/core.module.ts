@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.component';
+import { WeeklyBoardComponent } from './weekly-board/weekly-board.component';
 
 @NgModule({
   imports: [
@@ -77,11 +78,13 @@ import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.comp
     MatDialogModule,
     DeleteDialogComponent,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    WeeklyBoardComponent
   ],
   declarations: [
     HeaderComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    WeeklyBoardComponent
   ]
 })
 export class CoreModule { }

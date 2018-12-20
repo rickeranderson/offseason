@@ -24,6 +24,8 @@ export class PlayerDashboardComponent implements OnInit, OnDestroy {
 
   userId: string;
 
+  chartSelection = 'week';
+
   constructor(private route: ActivatedRoute, private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -38,6 +40,10 @@ export class PlayerDashboardComponent implements OnInit, OnDestroy {
     this.activityList$ = this.store.select(x => x.activityList).subscribe(val => {
       this.activityList = val;
     });
+  }
+
+  showChart(chartName: string) {
+    return chartName === this.chartSelection;
   }
 
   ngOnDestroy() {
