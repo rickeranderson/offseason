@@ -27,12 +27,14 @@ export class UserData {
                 {
                     id: 'ab6e4b47-acfd-477f-b71a-cc0af0001007',
                     activityId: 3,
-                    amount: 0.25
+                    amount: 0.25,
+                    timestampUtc: new Date()
                 },
                 {
                     id: 'ab6e4b47-acfd-477f-b71a-cc0a62531007',
                     activityId: 1,
-                    amount: 2
+                    amount: 2,
+                    timestampUtc: new Date()
                 }
             ]
             }

@@ -1,0 +1,14 @@
+<div *ngIf="done">
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+    </canvas>
+  </div>
+  <div style="text-align: center;">
+      <h4>{{ dayOne | date }} to {{ daySeven | date }}</h4>
+  </div>
+</div>

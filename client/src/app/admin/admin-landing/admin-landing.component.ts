@@ -36,7 +36,7 @@ export class AdminLandingComponent implements OnInit, OnDestroy {
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-    console.log(tabChangeEvent);
+    // console.log(tabChangeEvent);
     this.selectedTabIndex = tabChangeEvent.index;
   }
 

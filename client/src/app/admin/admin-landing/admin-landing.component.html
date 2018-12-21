@@ -28,6 +28,11 @@
       <app-all-players-graph [players]="players" [activityList]="activityList"></app-all-players-graph>
     </div>
   </mat-tab>
+  <mat-tab label="Weekly Chart">
+      <div *ngIf="selectedTabIndex === 2">
+        <app-weekly-board></app-weekly-board>
+      </div>
+    </mat-tab>
   <mat-tab label="Manage Athletes">
     <app-manage-players [players]="players"></app-manage-players>
   </mat-tab>
