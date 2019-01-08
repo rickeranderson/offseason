@@ -9,6 +9,8 @@
     </canvas>
   </div>
   <div style="text-align: center;">
-      <h4>{{ dayOne | date }} to {{ daySeven | date }}</h4>
+      <button mat-icon-button (click)="updateWeek('prev')"><mat-icon>arrow_left</mat-icon></button>
+      <h4 style="display: inline-block;">{{ dayOne | date }} to {{ daySeven | date }}</h4>
+      <button mat-icon-button (click)="updateWeek('next')"><mat-icon>arrow_right</mat-icon></button>
   </div>
 </div>

@@ -27,6 +27,11 @@ export class WeeklyBoardComponent implements OnInit, OnDestroy {
   barChartType = 'bar';
   barChartLegend = true;
 
+  dayOffset = 0;
+
+  activityList: any;
+  users: User[];
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -38,12 +43,14 @@ export class WeeklyBoardComponent implements OnInit, OnDestroy {
   }
 
   getWeeklyTopUsers() {
-    this.topUsers$ = this.store.select(x => x.users).subscribe(val => {
+    this.topUsers$ = this.store.select(x => x.users).subscribe(users => {
       this.store.select(x => x.activityList).subscribe(activityList => {
-        if (val && activityList && val.length > 0 && activityList.length > 0) {
-          const topFive = this.getTopFiveInThisWeek(val, activityList);
+        if (users && activityList && users.length > 0 && activityList.length > 0) {
+          this.activityList = activityList;
+          this.users = users;
+          const topFive = this.getTopFiveInThisWeek(users, activityList, this.dayOffset);
           this.topUsers = topFive;
-          if (val.length > 0) {
+          if (users.length > 0) {
             this.setupChart();
             this.setData(topFive);
           }
@@ -52,20 +59,26 @@ export class WeeklyBoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTopFiveInThisWeek(users: User[], activityList: ActivityDefinition[]): TopUser[] {
+  getTopFiveInThisWeek(users: User[], activityList: ActivityDefinition[], offset: number): TopUser[] {
     const topUsers: TopUser[] = [];
     const tmpUsers: User[] = [];
 
     const firstDayOfWeek = this.getMonday();
+    firstDayOfWeek.setHours(firstDayOfWeek.getHours() + (offset * 24));
     this.dayOne = firstDayOfWeek;
+    // console.log('firstday', firstDayOfWeek);
 
     const lastDayOfWeek = this.getSunday();
+    lastDayOfWeek.setHours(lastDayOfWeek.getHours() + (offset * 24));
     this.daySeven = lastDayOfWeek;
+    // console.log('lastDay', lastDayOfWeek);
 
     users.forEach(user => {
       tmpUsers.push({...user});
       tmpUsers.find(x => x.id === user.id).activityList =  [];
       user.activityList.forEach(act => {
+        // console.log('act', act);
+        // console.log('act-time', new Date(act.timestampUtc));
         if (new Date(act.timestampUtc) >= firstDayOfWeek && new Date(act.timestampUtc) <= lastDayOfWeek) {
           tmpUsers.find(x => x.id === user.id).activityList.push(act);
         }
@@ -109,7 +122,7 @@ export class WeeklyBoardComponent implements OnInit, OnDestroy {
   getMonday(): Date {
     const tmp = new Date();
     const d = new Date(tmp.getFullYear().toString() + '-' + (tmp.getMonth() + 1).toString() + '-' + tmp.getDate().toString());
-    d.setHours(d.getHours() - 10);
+    d.setHours(d.getHours() - 17);
     const day = d.getDay();
     const diff = d.getDate() - day + (day === 0 ? -6 : 1);
     return new Date(d.setDate(diff));
@@ -160,6 +173,30 @@ export class WeeklyBoardComponent implements OnInit, OnDestroy {
       return name;
     });
     return JSON.parse(JSON.stringify(labels));
+  }
+
+  updateWeek(request: string) {
+    switch (request) {
+      case 'next':
+        this.dayOffset = this.dayOffset + 7;
+        this.updateData();
+        break;
+      case 'prev':
+        this.dayOffset = this.dayOffset - 7;
+        this.updateData();
+        break;
+      default:
+        break;
+    }
+  }
+
+  updateData() {
+    const topFive = this.getTopFiveInThisWeek(this.users, this.activityList, this.dayOffset);
+    this.topUsers = topFive;
+    if (this.users.length > 0) {
+      this.setupChart();
+      this.setData(topFive);
+    }
   }
 
 }
