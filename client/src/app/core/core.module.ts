@@ -18,7 +18,8 @@ import {
   MatTableModule,
   MatDialogModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatPaginatorModule
 } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
@@ -51,7 +52,8 @@ import { WeeklyBoardComponent } from './weekly-board/weekly-board.component';
     MatTabsModule,
     ChartsModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -79,7 +81,8 @@ import { WeeklyBoardComponent } from './weekly-board/weekly-board.component';
     DeleteDialogComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    WeeklyBoardComponent
+    WeeklyBoardComponent,
+    MatPaginatorModule
   ],
   declarations: [
     HeaderComponent,

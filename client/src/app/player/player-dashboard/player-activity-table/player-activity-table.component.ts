@@ -36,7 +36,7 @@ export class PlayerActivityTableComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.user) {
-      this.dataSource = new MatTableDataSource(this.user.activityList);
+      this.dataSource = new MatTableDataSource(this.user.activityList.sort(this.sortByDate));
     }
   }
 
@@ -44,11 +44,20 @@ export class PlayerActivityTableComponent implements OnInit, OnChanges {
     this.user$ = this.store.select(x => x.users).subscribe(val => {
       this.user = val.find(x => x.id === this.userId);
       if (this.user) {
-        this.dataSource = new MatTableDataSource(this.user.activityList);
+        this.dataSource = new MatTableDataSource(this.user.activityList.sort(this.sortByDate));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
     });
+  }
+
+  sortByDate(a: Activity, b: Activity): number {
+    if (a.timestampUtc > b.timestampUtc) {
+      return -1;
+    } else if (a.timestampUtc < b.timestampUtc) {
+      return 1;
+    }
+    return 0;
   }
 
   getActivityDescription(id: number): string {
